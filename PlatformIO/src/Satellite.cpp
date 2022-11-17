@@ -133,6 +133,7 @@
 #define INMP441MAX98357A 4
 #define ESP32_POE_ISO 5
 #define TAUDIO 6
+#define LYRAT 7
 
 #ifdef PI_DEVICE_TYPE
 #undef DEVICE_TYPE
@@ -163,6 +164,10 @@
 #elif DEVICE_TYPE == TAUDIO
   #include "devices/TAudio.hpp"
   TAudio *device = new TAudio();
+#elif DEVICE_TYPE == LYRAT
+  #include "devices/LyraT.hpp"
+  LyraT *device = new LyraT();
+
 #else
   #error DEVICE_TYPE is out of range  
 #endif
