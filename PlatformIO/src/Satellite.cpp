@@ -141,6 +141,7 @@
 #define ESP32_POE_ISO 5
 #define TAUDIO 6
 #define INMP441MAX98357AFASTLED 7
+#define ESP32_GENERIC 8
 
 #ifdef PI_DEVICE_TYPE
 #undef DEVICE_TYPE
@@ -174,6 +175,9 @@
 #elif DEVICE_TYPE == INMP441MAX98357AFASTLED
   #include "devices/Inmp441Max98357aFastLed.hpp"
   Inmp441Max98357aFastLED *device = new Inmp441Max98357aFastLED();
+#elif DEVICE_TYPE == ESP32_GENERIC
+  #include "devices/ESP32_Generic.hpp"
+  ESP32_Generic *device = new ESP32_Generic();
 #else
   #error DEVICE_TYPE is out of range  
 #endif
