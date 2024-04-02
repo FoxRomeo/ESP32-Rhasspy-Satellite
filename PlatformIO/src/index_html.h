@@ -123,7 +123,7 @@ input::-moz-focus-inner,input::-moz-focus-outer {border: 0;}
     <div class="input-container">
       <label for="gain">Gain:&nbsp;</label>
       <div class="range-slider">  
-        <input type="range" min="1" max="8" value="%GAIN%" class="range-slider__range" name="gain">
+        <input type="range" min="1" max="20" value="%GAIN%" class="range-slider__range" name="gain">
         <span class="range-slider__value">0</span>
       </div>
     </div>
