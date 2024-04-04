@@ -15,6 +15,10 @@ jobs:
           - "m5atomecho"
           - "esp32-poe-iso"
           - "taudio"
+          - "inmp441Mmax98357afastled"
+          - "esp32_generic"
+          - "esp32c3_inmp441"
+          - "lyrat"
 
     runs-on: ubuntu-latest
 
