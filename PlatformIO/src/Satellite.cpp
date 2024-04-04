@@ -143,6 +143,7 @@
 #define INMP441MAX98357AFASTLED 7
 #define ESP32_GENERIC 8
 #define ESP32C3_INMP441 9
+#define LYRAT 10
 
 #ifdef PI_DEVICE_TYPE
 #undef DEVICE_TYPE
@@ -182,6 +183,9 @@
 #elif DEVICE_TYPE == ESP32C3_INMP441
   #include "devices/ESP32C3_Inmp441.hpp"
   ESP32C3_Inmp441 *device = new ESP32C3_Inmp441();
+#elif DEVICE_TYPE == LYRAT
+  #include "devices/LyraT.hpp"
+  LyraT *device = new LyraT();
 #else
   #error DEVICE_TYPE is out of range  
 #endif

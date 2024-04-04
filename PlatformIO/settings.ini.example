@@ -15,6 +15,7 @@ device_type=4
 ; INMP441MAX98357AFASTLED=7
 ; ESP32_GENERIC=8
 ; ESP32_C3_INMP441=9
+; LyraT=10
 
 ;network_type: 0: WiFi, 1: Ethernet
 network_type=0
