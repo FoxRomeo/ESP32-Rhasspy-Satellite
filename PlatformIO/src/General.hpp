@@ -230,7 +230,7 @@ struct Conv
      * this is then used to replace all occurrences of %LABEL_IN_CAPS% in the index.html.h 
      * 
      */ 
-5~    String (*toWebString)();
+    String (*toWebString)();
 
     /**
      * @brief the pointer to the function to  save the website parameter into the config data.
