@@ -197,15 +197,15 @@ String toStringFunc(const char* val) { return String(val);}
 
 // if there is not specialization for the given result type, we assume the html parameter is a integer number and can
 // be casted to the target type
-template <typename T> T processParamConvert(AsyncWebParameter *p) { return (T)p->value().toInt();}
+template <typename T> T processParamConvert(const AsyncWebParameter *p) { return (T)p->value().toInt();}
 
 // for bool result type we check if the returned parameter is "on" -> true, otherwise false
-template <> bool processParamConvert(AsyncWebParameter *p) { return p->value().equals("on");}
+template <> bool processParamConvert(const AsyncWebParameter *p) { return p->value().equals("on");}
 
 // for strings we return a string object
-template <> std::string processParamConvert(AsyncWebParameter *p) { return p->value().c_str();}
+template <> std::string processParamConvert(const AsyncWebParameter *p) { return p->value().c_str();}
 
-template <typename T> bool processParam(AsyncWebParameter *p, T& p_val)
+template <typename T> bool processParam(const AsyncWebParameter *p, T& p_val)
 {
     bool retval = false;
     T new_p_val = processParamConvert<T>(p);
@@ -241,7 +241,7 @@ struct Conv
      * @param p the parameter to process from the web server request 
      * @returns true if value was changed, false otherwise
      */
-    bool   (*toValue)(AsyncWebParameter* p) ;
+    bool   (*toValue)(const AsyncWebParameter* p) ;
 
     /**
      * @brief the pointer to function to be called if the parameter was changed during configuration, used to apply the value
@@ -253,145 +253,145 @@ struct Conv
 const std::map<const std::string, Conv> config_values = {
     { "siteid", { 
             []() { return toStringFunc(config.siteid); },
-            [](AsyncWebParameter *p) { return processParam(p, config.siteid); },
+            [](const AsyncWebParameter *p) { return processParam(p, config.siteid); },
             []() { reconnectNeeded = true; updateMqttTopicsStrings(); } 
         }
     },
     { "mqtt_host", { 
             []() { return toStringFunc(config.mqtt_host); },
-            [](AsyncWebParameter *p) { return processParam(p, config.mqtt_host); },
+            [](const AsyncWebParameter *p) { return processParam(p, config.mqtt_host); },
             []() { reconnectNeeded = true; } 
         }
     },
     { "mqtt_port", { 
             []() { return toStringFunc(config.mqtt_port); },
-            [](AsyncWebParameter *p) { return processParam(p, config.mqtt_port); },
+            [](const AsyncWebParameter *p) { return processParam(p, config.mqtt_port); },
             []() { reconnectNeeded = true; } 
         }
     },
     { "mqtt_user", { 
             []() { return toStringFunc(config.mqtt_user); },
-            [](AsyncWebParameter *p) { return processParam(p, config.mqtt_user); },
+            [](const AsyncWebParameter *p) { return processParam(p, config.mqtt_user); },
             []() { reconnectNeeded = true; } 
         }
     },
     { "mqtt_pass", { 
             []() { return toStringFunc(config.mqtt_pass); },
-            [](AsyncWebParameter *p) { return processParam(p, config.mqtt_pass); },
+            [](const AsyncWebParameter *p) { return processParam(p, config.mqtt_pass); },
             []() { reconnectNeeded = true; } 
         }
     },
     { "volume", { 
             []() { return toStringFunc(config.volume); },
-            [](AsyncWebParameter *p) { return processParam(p, config.volume); },
+            [](const AsyncWebParameter *p) { return processParam(p, config.volume); },
             []() { device->setVolume(config.volume); } 
         }
     },
     { "gain", { 
             []() { return toStringFunc(config.gain); },
-            [](AsyncWebParameter *p) { return processParam(p, config.gain); },
+            [](const AsyncWebParameter *p) { return processParam(p, config.gain); },
             []() { device->setGain(config.gain); } 
         }
     },
     { "brightness", { 
             []() { return toStringFunc(config.brightness); },
-            [](AsyncWebParameter *p) { return processParam(p, config.brightness); },
+            [](const AsyncWebParameter *p) { return processParam(p, config.brightness); },
             []() { device->updateBrightness(config.brightness); } 
         }
     },
     { "hw_brightness", { 
             []() { return toStringFunc(config.hotword_brightness); },
-            [](AsyncWebParameter *p) { return processParam(p, config.hotword_brightness); },
+            [](const AsyncWebParameter *p) { return processParam(p, config.hotword_brightness); },
             []() {} 
         }
     },
     { "mute_input", { 
             []() { return toStringFunc((config.mute_input) ? "checked" : ""); },
-            [](AsyncWebParameter *p) { return processParam(p, config.mute_input); },
+            [](const AsyncWebParameter *p) { return processParam(p, config.mute_input); },
             []() {} 
         }
     },
     { "mute_output", { 
             []() { return toStringFunc((config.mute_output) ? "checked" : ""); },
-            [](AsyncWebParameter *p) { return processParam(p, config.mute_output); },
+            [](const AsyncWebParameter *p) { return processParam(p, config.mute_output); },
             []() {} 
         }
     },
     { "amp_output", { 
             []() { return toStringFunc(config.amp_output); },
-            [](AsyncWebParameter *p) { return processParam(p, config.amp_output); },
+            [](const AsyncWebParameter *p) { return processParam(p, config.amp_output); },
             []() { device->ampOutput(config.amp_output); } 
         }
     },
     { "hotword_detection", { 
             []() { return toStringFunc(config.hotword_detection); },
-            [](AsyncWebParameter *p) { return processParam(p,config.hotword_detection); },
+            [](const AsyncWebParameter *p) { return processParam(p,config.hotword_detection); },
             []() {} 
         }
     },
     { "hw_local", { 
             []() { return toStringFunc((config.hotword_detection == HW_LOCAL) ? "selected" : ""); },
-            [](AsyncWebParameter *p) { return false; },
+            [](const AsyncWebParameter *p) { return false; },
             []() {} 
         }
     },
     { "hw_remote", { 
             []() { return toStringFunc((config.hotword_detection == HW_REMOTE) ? "selected" : ""); },
-            [](AsyncWebParameter *p) { return false; },
+            [](const AsyncWebParameter *p) { return false; },
             []() {} 
         }
     },
     { "amp_out_speakers", { 
             []() { return toStringFunc(device->numAmpOutConfigurations() < 1? "hidden" : (config.amp_output == AMP_OUT_SPEAKERS) ? "selected" : ""); },
-            [](AsyncWebParameter *p) { return false; },
+            [](const AsyncWebParameter *p) { return false; },
             []() {} 
         }
     },
     { "amp_out_headphone", { 
             []() { return toStringFunc(device->numAmpOutConfigurations() < 2? "hidden" : (config.amp_output == AMP_OUT_HEADPHONE) ? "selected" : ""); },
-            [](AsyncWebParameter *p) { return false; },
+            [](const AsyncWebParameter *p) { return false; },
             []() {} 
         }
     },
     { "amp_out_both", { 
             []() { return toStringFunc(device->numAmpOutConfigurations() < 3? "hidden" : (config.amp_output == AMP_OUT_BOTH) ? "selected" : ""); },
-            [](AsyncWebParameter *p) { return false; },
+            [](const AsyncWebParameter *p) { return false; },
             []() {} 
         }
     },
     {"animationsupported",  {   
             []() -> String { return device->animationSupported() ? "block" : "none"; },
-            [](AsyncWebParameter *p) { return false; },
+            [](const AsyncWebParameter *p) { return false; },
             []() {} 
         }
     },
     { "animation", { 
             []() { return toStringFunc(config.animation); },
-            [](AsyncWebParameter *p) { return processParam(p, config.animation); },
+            [](const AsyncWebParameter *p) { return processParam(p, config.animation); },
             []() {} 
         }
     },
     {"anim_solid", {
             []() -> String { return (config.animation == SOLID) ? "selected" : ""; },
-            [](AsyncWebParameter *p) { return false; },
+            [](const AsyncWebParameter *p) { return false; },
             []() {}  
         }
     },
     {"anim_running", {
             []() -> String { return device->runningSupported() ? (config.animation == RUN) ? "selected" : "" : "hidden"; },
-            [](AsyncWebParameter *p) { return false; },
+            [](const AsyncWebParameter *p) { return false; },
             []() {} 
         } 
     },
     {"anim_pulsing", {
             []() -> String { return device->pulsingSupported() ? (config.animation == PULSE) ? "selected" : "" : "hidden"; },
-            [](AsyncWebParameter *p) { return false; },
+            [](const AsyncWebParameter *p) { return false; },
             []() {} 
         } 
     },
     {"anim_blinking", {      
             []() -> String { return device->blinkingSupported() ? (config.animation == BLINK) ? "selected" : "" : "hidden"; },
-            [](AsyncWebParameter *p) { return false; },
+            [](const AsyncWebParameter *p) { return false; },
             []() {} 
         }
     },
@@ -457,7 +457,7 @@ void handleFSf ( AsyncWebServerRequest* request, const String& route ) {
 
 }
 
-void handleRequest ( AsyncWebServerRequest* request )
+void handleRequest ( const AsyncWebServerRequest* request )
 {
     handleFSf ( request, String( "/index.html") ) ;
 }
