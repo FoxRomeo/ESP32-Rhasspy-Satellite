@@ -32,7 +32,7 @@ Support for Snips is dropped.
 
 [INMP441](inmp441.md)
 
-[INMP441MAX98357A](inmp441max98357a.md)
+[INMP441MAX98357A](inmp441max98357a.md) &larr; use this for [Basic Satellite](https://github.com/requireiot/BasicSatellite)
 
 [ESP32-POE-ISO](Esp32-poe-iso.md)
 

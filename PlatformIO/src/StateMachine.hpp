@@ -91,7 +91,8 @@ class TtsPlay : public StateMachine
 
   void react(EndPlayAudioEvent const &) override { 
     publishDebug("EndPlayAudioEvent in TtsPlay");
-    transit<Tts>();
+//    transit<Tts>();
+    transit<Idle>();
   }
 };
 
