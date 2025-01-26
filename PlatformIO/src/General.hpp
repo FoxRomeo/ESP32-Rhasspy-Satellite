@@ -230,7 +230,7 @@ struct Conv
      * this is then used to replace all occurrences of %LABEL_IN_CAPS% in the index.html.h 
      * 
      */ 
-    String (*toWebString)();
+5~    String (*toWebString)();
 
     /**
      * @brief the pointer to the function to  save the website parameter into the config data.
@@ -488,7 +488,7 @@ void publishDebug(const char* message) {
 
 void loadConfiguration(const char *filename, Config &config) {
   File file = SPIFFS.open(filename);
-  StaticJsonDocument<512> doc;
+  JsonDocument doc;
   // Deserialize the JSON document
   DeserializationError error = deserializeJson(doc, file);
   if (error) {
@@ -534,7 +534,7 @@ void saveConfiguration(const char *filename, Config &config) {
         Serial.println(F("Failed to create file"));
         return;
     }
-    StaticJsonDocument<512> doc;
+    JsonDocument doc;
     doc["siteid"] = config.siteid;
     doc["mqtt_host"] = config.mqtt_host;
     doc["mqtt_port"] = config.mqtt_port;

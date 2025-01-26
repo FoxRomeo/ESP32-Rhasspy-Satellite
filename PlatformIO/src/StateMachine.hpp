@@ -557,7 +557,7 @@ void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties 
     if (topicstr.find(errorTopic.c_str()) != std::string::npos)
     {
       std::string payloadstr(payload);
-      StaticJsonDocument<300> doc;
+      JsonDocument doc;
       DeserializationError err = deserializeJson(doc, payloadstr.c_str());
       // Check if this is for us
       if (!err) {
@@ -570,7 +570,7 @@ void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties 
     } else if (topicstr.find(sayFinishedTopic.c_str()) != std::string::npos)
     {
       std::string payloadstr(payload);
-      StaticJsonDocument<300> doc;
+      JsonDocument doc;
       DeserializationError err = deserializeJson(doc, payloadstr.c_str());
       // Check if this is for us
       if (!err) {
@@ -583,7 +583,7 @@ void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties 
     } else if (topicstr.find(sayTopic.c_str()) != std::string::npos)
     {
       std::string payloadstr(payload);
-      StaticJsonDocument<300> doc;
+      JsonDocument doc;
       DeserializationError err = deserializeJson(doc, payloadstr.c_str());
       // Check if this is for us
       if (!err) {
@@ -596,7 +596,7 @@ void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties 
     } else if (topicstr.find("toggleOff") != std::string::npos)
     {
       std::string payloadstr(payload);
-      StaticJsonDocument<300> doc;
+      JsonDocument doc;
       DeserializationError err = deserializeJson(doc, payloadstr.c_str());
       // Check if this is for us
       if (!err) {
@@ -618,7 +618,7 @@ void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties 
       }
     } else if (topicstr.find("toggleOn") != std::string::npos) {
       std::string payloadstr(payload);
-      StaticJsonDocument<300> doc;
+      JsonDocument doc;
       DeserializationError err = deserializeJson(doc, payloadstr.c_str());
       // Check if this is for us
       if (!err) {
@@ -644,7 +644,7 @@ void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties 
       handle_playBytes(topicstr, (uint8_t*)payload, len, index, total);
     } else if (topicstr.find(ledTopic.c_str()) != std::string::npos) {
       std::string payloadstr(payload);
-      StaticJsonDocument<300> doc;
+      JsonDocument doc;
       bool saveNeeded = false;
       DeserializationError err = deserializeJson(doc, payloadstr.c_str());
       if (!err) {
@@ -713,7 +713,7 @@ void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties 
       }
     } else if (topicstr.find(audioTopic.c_str()) != std::string::npos) {
       std::string payloadstr(payload);
-      StaticJsonDocument<300> doc;
+      JsonDocument doc;
       DeserializationError err = deserializeJson(doc, payloadstr.c_str());
       if (!err) {
         JsonObject root = doc.as<JsonObject>();
@@ -741,7 +741,7 @@ void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties 
       }
     } else if (topicstr.find(restartTopic.c_str()) != std::string::npos) {
       std::string payloadstr(payload);
-      StaticJsonDocument<300> doc;
+      JsonDocument doc;
       DeserializationError err = deserializeJson(doc, payloadstr.c_str());
       if (!err) {
         JsonObject root = doc.as<JsonObject>();
@@ -755,7 +755,7 @@ void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties 
       }
     } else if (topicstr.find(debugTopic.c_str()) != std::string::npos) {
       std::string payloadstr(payload);
-      StaticJsonDocument<300> doc;
+      JsonDocument doc;
       DeserializationError err = deserializeJson(doc, payloadstr.c_str());
       if (!err) {
         JsonObject root = doc.as<JsonObject>();
@@ -765,7 +765,7 @@ void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties 
       }
     } else if (topicstr.find(setVolumeTopic.c_str()) != std::string::npos) {
       std::string payloadstr(payload);
-      StaticJsonDocument<300> doc;
+      JsonDocument doc;
       DeserializationError err = deserializeJson(doc, payloadstr.c_str());
       // Check if this is for us
       if (!err) {
