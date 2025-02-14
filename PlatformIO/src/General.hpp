@@ -417,7 +417,7 @@ void handleFSf ( AsyncWebServerRequest* request, const String& route ) {
         if (request->method() == HTTP_POST) {
             for(auto config_value: config_values)
             {
-                const AsyncWebParameter* p = request->getParam(config_value.first.c_str(), true);
+                AsyncWebParameter* p = request->getParam(config_value.first.c_str(), true);
                 if (p)
                 {
                   bool sn = config_value.second.toValue(p);
